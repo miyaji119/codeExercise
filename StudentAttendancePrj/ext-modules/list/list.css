@@ -1,0 +1,33 @@
+.list {
+    color:white;
+    font-size: 16px;
+    list-style-type: none;
+    vertical-align: middle;
+    padding: 0px;
+    margin-bottom: 0px;
+    /*border:1px solid red;*/
+}
+
+.list-area {
+    position: relative;
+    height: 100%;
+    background-color: #333;
+    color: #ccc;
+    padding-left: 0;
+    padding-bottom: 0px;
+    z-index:5;
+}
+
+.selectable-item{
+    padding: 20px 8px 15px 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.selectable-item:hover{
+    background-color: #555;
+    cursor: pointer;
+}
+
+.selectable-item:focus{
+    background-color: #555;
+}

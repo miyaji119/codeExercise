@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="attendanceApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>教务考勤系统</title>
+
+    <!--node_modules-->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <!--<script src="node_modules/angular-route/angular-route.min.js"></script>-->
+    <!--css-->
+    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="ext-modules/framework/framework.css">
+    <link rel="stylesheet" href="ext-modules/list/list.css">
+    <!--ext-modules-->
+    <script src="ext-modules/list/listModule.js"></script>
+    <script src="ext-modules/list/listController.js"></script>
+    <script src="ext-modules/list/listDirective.js"></script>
+    <script src="ext-modules/list/listItemDirective.js"></script>
+    <script src="ext-modules/framework/frameworkModule.js"></script>
+    <script src="ext-modules/framework/frameworkController.js"></script>
+    <script src="ext-modules/framework/frameworkDirective.js"></script>
+    <script src="app/appModule.js"></script>
+
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <framework app-title="教务考勤系统" logo="globe">
+            <list>
+                <list-item label="本日已签到的课程" icon="ok-sign" route="today-signed"></list-item>
+                <list-item label="本日待签到的课程" icon="question-sign" route="today-unsign"></list-item>
+                <list-item label="本日尚未开始签到的课程" icon="minus-sign" route="today-prepare"></list-item>
+                <list-item label="历史签到情况" icon="credit-card" route="history"></list-item>
+                <list-item label="退出系统" icon="log-out" route="log-out"></list-item>
+            </list>
+        </framework>
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    font-family: sans-serif,微软雅黑;
+}
+
+.container-fluid{
+    height: 100%;
+    padding: 0px;
+}

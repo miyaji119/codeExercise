@@ -1,0 +1,68 @@
+.title-bar{
+    width: 100%;
+    background-color: rgb(51,122,183);
+    color:white;
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.collapsed-menu{
+    text-align: center;
+}
+
+.nav-btn,.nav-btn:hover,.nav-btn:focus{
+    font-size:16px;
+    border:none;
+    background-color: rgb(51,122,183);
+    color:white;
+}
+
+.title-area{
+    font-size:16px;
+    margin-top: 5px;
+    margin-left: 40px;
+    display: inline-block;
+}
+
+.logo{
+    font-size:20px;
+    vertical-align: top;
+}
+
+.login{
+    width: 80%;
+    margin-top: 180px;
+}
+
+.stu-info-area{
+    position: absolute;
+    top:20%;
+    left:10%;
+    right:10%;
+    /*border:1px solid pink;*/
+    text-align: center;
+    z-index: 0;
+}
+
+.attendance-info-area{
+    text-align: center;
+}
+
+.portrait{
+    width: 100px;
+    height: 100px;
+    border:1px solid gray;
+    margin-bottom: 20px;
+}
+
+.portrait>img{
+    width: 100px;
+    height: 100px;
+}
+
+.stu-info-area>span{
+    display: block;
+    margin-bottom: 20px;
+}
