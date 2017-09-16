@@ -1,0 +1,56 @@
+body{
+  margin: 0px;
+  padding: 0px;
+  background-color:rgb(115,168,87);
+}
+.background{
+  color:rgb(115,168,87);
+}
+.quote-area{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -162.5px;
+  margin-left: -260px;
+  padding-bottom: 42px;
+  width: 550px;
+  border:1px solid white;
+  border-radius: 10px;
+  background-color: white;
+}
+.quote{
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 47px;
+  font-size:30px;
+}
+.quote>p{
+  text-align: center;
+}
+.quote>p:last-child{
+  text-align: right;
+  font-size:16px;
+}
+.btns{
+  margin-top: 15px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 42px;
+  border:none;
+  background-color:rgb(115,168,87);
+  color:white;
+}
+.share-btn>a{
+  width: 40px;
+  height: 40px;
+  background-color:rgb(115,168,87);
+  color:white;
+  text-align: center;
+  font-size: 20px;
+}
+.new-btn>button,.new-btn>button:hover,.new-btn>button:focus{
+  width: 102px;
+  height: 40px;
+  background-color:rgb(115,168,87);
+  color:white;
+}
