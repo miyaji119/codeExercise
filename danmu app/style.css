@@ -1,0 +1,79 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
+.wall{
+  width: 1308px;
+  height: 380px;
+  font-size:20px;
+  margin-top: 20px;
+  border:1px solid lightgray;
+  border-radius:2px;
+  text-align: left;
+  overflow:hidden;
+}
+
+@-webkit-keyframes move{
+  from {left:1308px;}
+  to {left:-10px;}
+}
+
+@keyframes move{
+  from {left:1308px;}
+  to {left:-10px;}
+}
+
+.wall>div{
+  position: absolute;
+  display:inline;
+  /*border:1px solid lightblue;*/
+  animation-name: move;
+  animation-duration: 10s;
+}
+
+.danmu-input{
+  width: 500px;
+  padding-top: 6px;
+  padding-bottom: 58px;
+  text-align: center;
+}
+
+.danmu-input>input{
+  width: 400px;
+  height: 36px;
+  font-size:14px;
+  border:1px solid lightgray;
+  border-radius:2px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 11px;
+  line-height:normal;
+}
+
+.danmu-input>button,.danmu-input>button:hover{
+  width: 160px;
+  height: 35px;
+  margin-top: 18px;
+  border-radius:2px;
+  background-color: white;
+}
+
+.send,.send:hover{
+  border:1px solid rgb(280,80,30);
+  color:rgb(280,80,30);
+}
+
+/* .send:focus{
+  background-color: rgb(280,80,30);
+  color:white;
+} */
+
+.clear,.clear:hover{
+  color:lightgray
+}
+
+/* .clear:focus{
+  background-color: lightgray;
+  color:white;
+} */
