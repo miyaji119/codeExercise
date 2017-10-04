@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta http-equiv="Access-Control-Allow-Origin" content="http://v.juhe.cn/weather/">
+	<title>show local weather</title>
+
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="../jquery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script type="text/javascript" src="weather.js"></script>
+
+</head>
+<body>
+  <div class"show-area text-center">
+    <div class="head">
+      <div class="logo pull-left">
+        <img src="https://www.juhe.cn/themes/v5/public/images/loginlogo.png">
+      </div>  <!-- logo -->
+      <div class="title"><p>天气应用</p></div>
+    </div>  <!-- head -->
+    <hr>
+    <div class="weather">
+      <p>今天天气</p>
+      <ul>
+        <li class="humidity">湿度：</li>
+        <li class="wear">穿衣指数：</li>
+        <li class="car">洗车指数：</li>
+        <li class="trip">旅行指数：</li>
+        <li class="train">锻炼指数：</li>
+        <li class="ray">紫外线指数：</li>
+      </ul>
+    </div>  <!-- weather -->
+    <hr>
+    <div class="future">
+      <p>未来6天天气</p>
+      <div class="f-weather">
+        <table class="table">
+          <thead>
+            <th>日期</th>
+            <th>星期</th>
+            <th>温度</th>
+            <th>天气</th>
+            <th>风力</th>
+          </thead>
+          <tbody>
+            <!-- 插入数据 -->
+          </tbody>
+        </table>
+      </div>
+    </div>  <!-- future -->
+  </div>  <!-- show-area -->
+</body>
+</html>
