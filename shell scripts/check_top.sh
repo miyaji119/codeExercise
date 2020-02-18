@@ -11,6 +11,7 @@
 #   + 如果wa很低，id很高，但系统还是很慢，那就要查一下网络IO或者远程服务器的回应是不是很慢，或者查一下上下文切换和锁，看看是否存在大量的锁争用和等待的情况
 # - 检查Memory使用情况
 #	+ 找到消耗内存最多的前10个进程
+# - 检查Swap使用情况
 ########################################
 
 # top
@@ -91,24 +92,29 @@ function check_memory_situation {
 
 	# split_line
 }
+
+# - 检查Swap使用情况
+function check_swap_situation {
+	# 查看Swap使用情况
+	echo -e "Swap使用情况: "
+	top -b -n 1 | grep Swap
+	split_line
+	
+	echo -e "使用free命令查看："
+	free -m
+	split_line
+}
 ########################################
 
 
-# 检查运行队列大小，检查runnable的进程数量
+# 检查运行队列大小，检查runnable的进程数量（检查procs下的r列数值）
 # 每个处理器的运行队列大小不应超过3个，少于10倍的CPU个数，否则线程过多或者CPU不够
-state=$(vmstat)
-for line in $state do
-	num=$line
-done
-echo $(num | awk '{print $1}')
+num=$(echo $(vmstat) | awk '{print $24}')
+if [[ $num -gt 3 ]]; then
+	echo "runnable processes is: $num"
+fi
 
-# 查看Swap使用情况
-echo -e "Swap使用情况: "
-top -b -n 1 | grep Swap
-split_line
-echo -e "使用free命令查看："
-free -m
-split_line
+
 
 
 # 比较某个用户与其他用户内存使用情况
