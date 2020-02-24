@@ -11,28 +11,34 @@
 #   + 磁盘的IO等待可以通过iostat -x查看，主要看await, svctm列
 ########################################
 
-# 执行一次top
-uptime
+# uptime
+
+cat /proc/loadavg
+
+# 系统进程总数
+process_num=$(cat /proc/loadavg | awk '{print $4}' | awk -F '/' '{print $2}')
+# 正在运行的进程数
+running_process_num=$(cat /proc/loadavg | awk '{print $4}' | awk -F '/' '{print $1}')
 
 # 过去1分钟的load
-load_one_min=$(uptime | awk -F ',' '{print $4}' |awk -F ':' '{print $2}')
+load_one_min=$(uptime | awk -F ',' '{print $4}' | awk -F ':' '{print $2}')
 # 过去5分钟的load
 load_five_min=$(uptime | awk -F ',' '{print $5}')
 # 过去15分钟的load
 load_fifteen_min=$(uptime | awk -F ',' '{print $6}')
 
-# 核数
-core_num=$(grep 'core id' /proc/cpuinfo | sort -u |wc -l)
+# CPU数
+cpu_num=$(grep 'model name' /proc/cpuinfo | sort -u | wc -l)
 # 物理CPU个数
-pysical_cpu_num=$(grep 'physical id' /proc/cpuinfo | sort -u |wc -l)
+pysical_cpu_num=$(grep 'physical id' /proc/cpuinfo | sort -u | wc -l)
 
 
 # 每核的load情况
-per_core_load_one_min=$(echo "scale=3;$load_one_min/$core_num" | bc)
-per_core_load_five_min=$(echo "scale=3;$load_five_min/$core_num" | bc)
-per_core_load_fifteen_min=$(echo "scale=3;$load_fifteen_min/$core_num" | bc)
+per_cpu_load_one_min=$(echo "scale=3;$load_one_min/$cpu_num" | bc)
+per_cpu_load_five_min=$(echo "scale=3;$load_five_min/$cpu_num" | bc)
+per_cpu_load_fifteen_min=$(echo "scale=3;$load_fifteen_min/$cpu_num" | bc)
 
-echo "load avarage for each core: $per_core_load_one_min, $per_core_load_five_min, $per_core_load_fifteen_min"
+echo "load avarage for each core: $per_cpu_load_one_min, $per_cpu_load_five_min, $per_cpu_load_fifteen_min"
 
 # mail content function
 function send_mail {
@@ -43,16 +49,16 @@ function send_mail {
 }
 
 # 只要有一项数值大于0.65，就发送邮件
-#if [[ $per_core_load_one_min -gt 0.65 || $per_core_load_five_min -gt 0.65 || $per_core_load_fifteen_min -gt 0.65 ]]; then
+#if [[ $per_cpu_load_one_min -gt 0.65 || $per_cpu_load_five_min -gt 0.65 || $per_cpu_load_fifteen_min -gt 0.65 ]]; then
 #	$send_mail
 #fi
 
 #
-if [[ $per_core_load_one_min -gt 0.65 ]]; then
+if [[ $per_cpu_load_one_min -gt 0.65 ]]; then
 	echo "load avarage for each core in 1 min is larger than 65%."
-elif [[ $per_core_load_five_min -gt 0.65 ]]; then
+elif [[ $per_cpu_load_five_min -gt 0.65 ]]; then
 	echo "load avarage for each core in 5 min is larger than 65%."
-elif [[ $per_core_load_fifteen_min -gt 0.65 ]]; then
+elif [[ $per_cpu_load_fifteen_min -gt 0.65 ]]; then
 	echo "load avarage for each core in 15 min is larger than 65%."
 fi
 

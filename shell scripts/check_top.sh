@@ -113,11 +113,17 @@ num=$(echo $(vmstat) | awk '{print $24}')
 if [[ $num -gt 3 ]]; then
 	echo "runnable processes is: $num"
 fi
-
+echo "runnable的进程数量：$num"
 
 
 
 # 比较某个用户与其他用户内存使用情况
 compare_users_memory
+# 检查CPU使用情况
+check_cpu_situation
+# 检查Memory使用情况
+check_memory_situation
+# 检查Swap使用情况
+check_swap_situation
 # 检查并清除僵尸进程
-check_clean_zombie
+# check_clean_zombie
