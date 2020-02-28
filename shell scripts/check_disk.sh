@@ -11,8 +11,12 @@
 # functions:
 # - 
 funciton check_io {
+	
+	# 检查iostat
 	iostat
+
+	iowait=$(iostat | awk NR==4'{print $4}')
 }
 ########################################
 
-# 检查iostat
+

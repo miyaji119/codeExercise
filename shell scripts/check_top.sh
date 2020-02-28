@@ -73,11 +73,19 @@ function check_cpu_situation {
 	echo "空闲CPU百分比： $( echo $total | awk -F ',' '{print $4}' )"
 	echo "等待输入输出的CPU时间百分比： $( echo $total | awk -F ',' '{print $5}' )"
 
+	split_line
+
 	# 找到消耗CPU最多的前10个进程
 	echo "消耗CPU最多的前10个进程："
 	ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10
 
-	# split_line
+	split_line
+	
+	# 检查CPU使用率
+	US=$(vmstat | awk NR==3'{print $13}')
+	SY=$(vmstat | awk NR==3'{print $14}')
+	cpu_use=$[ $US + $SY ]
+	
 }
 
 # - 检查Memory使用情况
@@ -109,7 +117,7 @@ function check_swap_situation {
 
 # 检查运行队列大小，检查runnable的进程数量（检查procs下的r列数值）
 # 每个处理器的运行队列大小不应超过3个，少于10倍的CPU个数，否则线程过多或者CPU不够
-num=$(echo $(vmstat) | awk '{print $24}')
+num=$(vmstat |awk  NR==3'{print $1}')
 if [[ $num -gt 3 ]]; then
 	echo "runnable processes is: $num"
 fi
