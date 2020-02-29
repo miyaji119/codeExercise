@@ -55,7 +55,7 @@ function check_clean_zombie {
 		# 找到僵尸进程的PPID
 		# ps -ef | grep defunct | grep -v grep | awk '{print $3}'
 		# 杀掉僵尸进程的父进程
-		ps -ef | grep defunct | grep -v grep | awk '{print $3}' | xargs kill -9
+		# ps -ef | grep defunct | grep -v grep | awk '{print $3}' | xargs kill -9
 	fi
 }
 
@@ -88,8 +88,8 @@ function check_cpu_situation {
 	
 }
 
-# - 检查Memory使用情况
-function check_memory_situation {
+# - 检查Memory和Swap使用情况
+function check_memory_swap {
 	# 查看Memory使用情况
 	echo -e "Memory使用情况: "
 	top -b -n 1 | grep "KiB Mem"
@@ -98,19 +98,45 @@ function check_memory_situation {
 	echo "消耗内存最多的前10个进程："
 	ps -auxf | sort -nr -k 4 | head -10
 
-	# split_line
-}
+	split_line
 
-# - 检查Swap使用情况
-function check_swap_situation {
 	# 查看Swap使用情况
 	echo -e "Swap使用情况: "
 	top -b -n 1 | grep Swap
+	
 	split_line
 	
-	echo -e "使用free命令查看："
-	free -m
-	split_line
+	# echo -e "使用free命令查看："
+	# free -m
+
+	# 抓取物理内存free值
+	memo_free=$( free -m | grep Mem | awk '{print $4}' )
+	echo "Mem-free: $memo_free M"
+	# 抓取缓冲区的free值
+	# echo buffers/cache-free: $( free -m | grep - | awk '{print $4}' )M
+	# 抓取Swap分区free值
+	swap_free=$( free -m | grep Swap | awk '{print $4}' )
+	echo "Swap-free: $swap_free M"
+	# 当前已使用的Swap used大小
+	swap_used=$( free -m | grep Swap | awk '{print $3}' )
+
+	# 监控Swap分区情况，超过80%时警告
+	# 报警阈值
+	swap_warn=0.20
+
+	if [[ $swap_used != 0 ]]; then
+		# 如果交换分区已被使用，则计算当前剩余交换分区free所占总量的百分比，用小数来表示，要在小数点前面补一个整数位0 
+		swap_per=0$( echo "scale=2;$swap_free/$swap_total" | bc )
+
+		# 当前剩余交换分区百分比与阈值进行比较（当大于告警值(即剩余20%以上)时会返回1，小于(即剩余不足20%)时会返回0 ） 
+		swap_now=$( expr $swap_per > $swap_warn )
+
+		# 如果当前交换分区使用超过80%（即剩余小于20%，上面的返回值等于0），立即发邮件告警 
+		if [[ $swap_now == 0 ]]; then 
+			echo "Swap交换分区只剩下 $swap_free M 未使用，剩余不足20%，使用率已经超过80%"
+		fi 
+	fi
+
 }
 ########################################
 
@@ -130,8 +156,6 @@ compare_users_memory
 # 检查CPU使用情况
 check_cpu_situation
 # 检查Memory使用情况
-check_memory_situation
-# 检查Swap使用情况
-check_swap_situation
+check_memory_swap
 # 检查并清除僵尸进程
 # check_clean_zombie
