@@ -51,12 +51,12 @@ function check_clean_zombie {
 	local num=$(ps -ef | grep defunct | grep -v grep | wc -l)
 
 	# 如果有僵尸进程就进行清理
-	if [[ $num -gt 0 ]]; then
+	# if [[ $num -gt 0 ]]; then
 		# 找到僵尸进程的PPID
 		# ps -ef | grep defunct | grep -v grep | awk '{print $3}'
 		# 杀掉僵尸进程的父进程
 		# ps -ef | grep defunct | grep -v grep | awk '{print $3}' | xargs kill -9
-	fi
+	# fi
 }
 
 # - 检查CPU使用情况

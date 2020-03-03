@@ -38,7 +38,7 @@ per_cpu_load_one_min=$(echo "scale=3;$load_one_min/$cpu_num" | bc)
 per_cpu_load_five_min=$(echo "scale=3;$load_five_min/$cpu_num" | bc)
 per_cpu_load_fifteen_min=$(echo "scale=3;$load_fifteen_min/$cpu_num" | bc)
 
-echo "load avarage for each core: $per_cpu_load_one_min, $per_cpu_load_five_min, $per_cpu_load_fifteen_min"
+echo "load avarage for each core: 0$per_cpu_load_one_min, 0$per_cpu_load_five_min, 0$per_cpu_load_fifteen_min"
 
 # mail content function
 function send_mail {
@@ -54,11 +54,11 @@ function send_mail {
 #fi
 
 #
-if [[ $per_cpu_load_one_min -gt 0.65 ]]; then
+if [[ $per_cpu_load_one_min > 0.65 ]]; then
 	echo "load avarage for each core in 1 min is larger than 65%."
-elif [[ $per_cpu_load_five_min -gt 0.65 ]]; then
+elif [[ $per_cpu_load_five_min > 0.65 ]]; then
 	echo "load avarage for each core in 5 min is larger than 65%."
-elif [[ $per_cpu_load_fifteen_min -gt 0.65 ]]; then
+elif [[ $per_cpu_load_fifteen_min > 0.65 ]]; then
 	echo "load avarage for each core in 15 min is larger than 65%."
 fi
 
